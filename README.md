@@ -1,0 +1,172 @@
+[![license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
+
+# CUBA Forgot Password Component
+
+This application component gives the following features once added to a CUBA project:
+
+- Enables logging in by both login name and email (this works also when using REST API)
+- Can display an optional _Forgot password_ link in the main login window, allowing users to send 
+themselves an email with a reset password link
+- Exposes a new REST service (_extsec_UserManagementService_) that enables REST clients to use the
+forgot password functionality via API calls
+- Adds an _allowAnonymous_ boolean attribute to the _rest-services.xml_ file, allowing for only some
+methods to be called without an authorization token via REST API (v2). This is the mechanism that
+allows the _extsec_UserManagementService_ to be used before authentication, but can be leveraged by
+custom services too
+
+
+## Installation
+
+1. Add the following maven repository `https://dl.bintray.com/pfurini/cuba-components` to the build.gradle of your CUBA application:
+
+
+    buildscript {
+        
+        //...
+        
+        repositories {
+        
+            // ...
+        
+            maven {
+                url  "https://dl.bintray.com/pfurini/cuba-components"
+            }
+        }
+        
+        // ...
+    }
+
+2. Select a version of the add-on which is compatible with the platform version used in your project:
+
+| Platform Version | Add-on Version |
+| ---------------- | -------------- |
+| 6.6.4            | 0.1.x          |
+
+The latest version is: `0.1.0`
+
+Add custom application component to your project:
+
+* Artifact group: `it.nexbit.cuba.security.forgotpassword`
+* Artifact name: `nxsecfp-global`
+* Version: *add-on version*
+
+## Usage
+
+### Using the _allowAnonymous_ attribute
+
+The following step is required only if you already have (or plan to have) services for which you
+want to leverage the extended `allowAnonymous="true"` attribute.
+
+First, follow the normal procedure to add and register a new `rest-services.xml` file to your project.
+
+Then open the `rest-services.xml` file and change the following line:
+
+```xml
+<services xmlns="http://schemas.haulmont.com/cuba/rest-services-v2.xsd">
+```
+
+to this line:
+
+```xml
+<services xmlns="http://schemas.haulmont.com/cuba/rest-services-v2-ext.xsd">
+```
+
+This will allow editing the xml file inside an IDE, without it complaining for an unknown attribute.
+
+Here is a sample `rest-services.xml` file using the new attribute:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<services xmlns="http://schemas.haulmont.com/cuba/rest-services-v2-ext.xsd">
+    <service name="testsec_NewService">
+        <method name="someMethod" allowAnonymous="true">
+            <param name="someArg"/>
+        </method>
+    </service>
+</services>
+```
+
+### Using the Forgot Password functionality
+
+To enable the Forgot password link, and related functionality in the main login window, follow these steps:
+
+1. Add the following properties to your `web-app.properties` file:
+```properties
+# this property enables the reset password link in login window
+ext.security.showResetPasswordLinkAtLogin = true
+
+# you must include the "reset" link handler action to be able to open the change pass dialog via custom link
+cuba.web.linkHandlerActions = open|o|reset
+```
+
+2. Optionally, create custom reset link emails and set the corresponding paths in your `app.properties` file,
+located in the `core` module:
+```properties
+# create customized email templates, and set the full path in these properties
+ext.security.resetPasswordLinkTemplateBody = /it/nexbit/cuba/security/forgotpassword/app/email/reset-password-link-body.gsp
+ext.security.resetPasswordLinkTemplateSubject = /it/nexbit/cuba/security/forgotpassword/app/email/reset-password-link-subject.gsp
+```
+You can find built-in templates here: [Default email templates](https://github.com/pfurini/cuba-component-forgot-password/tree/master/modules/global/src/it/nexbit/cuba/security/forgotpassword/app/email).
+Remember that they use the same mechanism described here in the official docs: https://doc.cuba-platform.com/manual-6.6/users.html, so
+they can be localized adding a locale suffix, and they can also be located or overridden in the tomcat configuration directory, with 
+the properties added to the `local.app.properties` file.
+
+#### Properties
+The component also exposes the following DATABASE properties, that you can configure in your running app:
+
+| Property                                       | Default Value                       | Description                                              |
+| ---------------------------------------------- | ----------------------------------- | -------------------------------------------------------- |
+| ext.security.resetPasswordLinkWebPath          | /reset                              | The path appended to your web application URL when the token is generated from the standard login window (**WARNING**: do not modify this value unless you are extending or changing the component behavior) |
+| ext.security.resetPasswordLinkPortalUrl        | http://localhost:8080/portal/reset  | You **should** change this property if you plan to use the forgot password functionality from REST clients. This endpoint must be configured using your JS framework of choice, and it is beyond the scope of this documentation |
+| ext.security.resetPasswordTokenLifetimeMinutes | 1440                                | The lifetime of a newly generated reset token (default 24 hours) |
+
+#### extsec_UserManagementService Methods
+
+The following are the methods exposed by the `extsec_UserManagementService`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns="http://schemas.haulmont.com/cuba/rest-services-v2-ext.xsd">
+    <service name="extsec_UserManagementService">
+        <method name="checkUserExist" allowAnonymous="true">
+            <param name="loginOrEmail"/>
+        </method>
+        <method name="sendResetPasswordLink" allowAnonymous="true">
+            <param name="loginOrEmail"/>
+        </method>
+        <method name="checkResetPasswordToken" allowAnonymous="true">
+            <param name="token"/>
+        </method>
+        <method name="changePasswordWithToken" allowAnonymous="true">
+            <param name="token"/>
+            <param name="password"/>
+        </method>
+        <method name="deleteResetPasswordToken" allowAnonymous="true">
+            <param name="token"/>
+        </method>
+    </service>
+</services>
+```
+
+Please see the JavaDoc documentation on the interface methods for explanation of their usage and parameters.
+
+#### Usage Notes
+
+The methods exposed to REST clients are not all the methods available on the `NexbitUserManagementService` interface,
+but only the _safest_ ones.
+
+Feel free to use the other ones in your own client and middleware code, for example if you want to implement
+a new management functionality to bulk send reset passwords to a group of users.
+
+This is specially useful, because the methods on that interface allow to explicitly set the `baseUrl` to use when
+generating reset links, and so you could let your power user (admin) to choose where end users will be redirected
+when clicking the link (if you have multiple apps for multiple groups of users).
+
+In this regard, the component use a couple of defaults when choosing which `baseUrl` to use when generating reset links:
+
+- if the user click the _Forgot password_ link on the main (vaadin) login window, it will use the URL obtained by
+concatenating the values from `GlobalConfig#getWebAppUrl()` and the `ext.security.resetPasswordLinkWebPath` property
+- if the request comes from the `sendResetPasswordLink` REST service method, it will use the URL in the `ext.security.resetPasswordLinkPortalUrl`
+property
+
+In both cases, it will append a `token=<TOKEN_VALUE>` query string to the final URL.
