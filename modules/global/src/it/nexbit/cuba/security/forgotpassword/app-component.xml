@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<app-component xmlns="http://schemas.haulmont.com/cuba/app-component.xsd"
+               dependsOn="com.haulmont.cuba">
+    <module blocks="*"
+            name="global">
+        <artifact appJar="true"
+                  name="nxsecfp-global"/>
+        <property name="cuba.persistenceConfig"
+                  value="+it/nexbit/cuba/security/forgotpassword/persistence.xml"/>
+        <property name="cuba.metadataConfig"
+                  value="+it/nexbit/cuba/security/forgotpassword/metadata.xml"/>
+        <property name="cuba.viewsConfig"
+                  value="+it/nexbit/cuba/security/forgotpassword/views.xml"/>
+    </module>
+    <module blocks="core"
+            dependsOn="global"
+            name="core">
+        <artifact appJar="true"
+                  name="nxsecfp-core"/>
+        <property name="cuba.springContextConfig"
+                  value="+it/nexbit/cuba/security/forgotpassword/spring.xml"/>
+        <property name="cuba.mainMessagePack"
+                  value="+it.nexbit.cuba.security.forgotpassword.core"/>
+        <artifact classifier="db"
+                  configuration="dbscripts"
+                  ext="zip"
+                  name="nxsecfp-core"/>
+    </module>
+    <module blocks="web,desktop"
+            dependsOn="global"
+            name="gui">
+        <artifact appJar="true"
+                  name="nxsecfp-gui"/>
+    </module>
+    <module blocks="web"
+            dependsOn="gui"
+            name="web">
+        <artifact appJar="true"
+                  name="nxsecfp-web"/>
+        <artifact classifier="web"
+                  configuration="webcontent"
+                  ext="zip"
+                  name="nxsecfp-web"/>
+        <property name="cuba.springContextConfig"
+                  value="+it/nexbit/cuba/security/forgotpassword/web-spring.xml"/>
+        <property name="cuba.dispatcherSpringContextConfig"
+                  value="+it/nexbit/cuba/security/forgotpassword/web-dispatcher-spring.xml"/>
+        <property name="cuba.windowConfig"
+                  value="+it/nexbit/cuba/security/forgotpassword/web-screens.xml"/>
+        <property name="cuba.menuConfig"
+                  value="+it/nexbit/cuba/security/forgotpassword/web-menu.xml"/>
+        <property name="cuba.permissionConfig"
+                  value="+it/nexbit/cuba/security/forgotpassword/web-permissions.xml"/>
+        <property name="cuba.mainMessagePack"
+                  value="+it.nexbit.cuba.security.forgotpassword.web"/>
+        <property name="cuba.restSpringContextConfig"
+                  value="+it/nexbit/cuba/security/forgotpassword/rest-dispatcher-spring.xml"/>
+        <property name="cuba.rest.servicesConfig"
+                  value="+it/nexbit/cuba/security/forgotpassword/rest-services.xml"/>
+    </module>
+</app-component>

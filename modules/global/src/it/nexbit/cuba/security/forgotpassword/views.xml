@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+    <view class="it.nexbit.cuba.security.forgotpassword.entity.ResetPasswordToken"
+          extends="_local"
+          name="resetPasswordToken.validate">
+        <property name="user"
+                  view="_local"/>
+    </view>
+</views>
