@@ -1,0 +1,80 @@
+# Set behaviour for all files, so always leave global core.autocrlf to "input" (default)
+* text=auto
+
+# Explicitly declare text files we want to always be normalized and converted to native line endings on checkout.
+*.txt text diff
+*.exp text diff
+*.r   text diff
+*.yml text diff
+*.js  text diff
+*.md  text diff
+*.MD  text diff
+*.gitignore text diff
+
+# Declare common diff patterns for specific file types
+*.cs     text diff=csharp
+*.htm    text diff=html
+*.html   text diff=html
+*.py     text diff=python
+*.py3    text diff=python
+*.java   text diff=java
+*.m      text diff=objc
+*.mm     text diff=objc
+*.pas    text diff=pascal
+*.c      text diff=cpp
+*.h      text diff=cpp
+*.cpp    text diff=cpp
+*.hpp    text diff=cpp
+
+# Declare files that will always have CRLF line endings on checkout.
+*.xaml          text diff eol=crlf
+*.ps1           text diff eol=crlf
+*.sln           text diff eol=crlf
+*.csproj        text diff eol=crlf
+*.vbproj        text diff eol=crlf
+*.vcproj        text diff eol=crlf
+*.vcxproj       text diff eol=crlf
+*.vsdoc         text diff eol=crlf
+*.testsettings  text diff eol=crlf
+*.testrunconfig text diff eol=crlf
+*.DotSettings   text diff eol=crlf
+*.netlicproj    text diff eol=crlf
+*.aip           text diff eol=crlf
+*.bat           text diff eol=crlf
+*.cmd           text diff eol=crlf
+
+# Declare files that will always have LF line endings on checkout
+*.sh              text diff eol=lf
+*.command         text diff eol=lf
+*.xcconfig        text diff eol=lf
+*.sublime-project text diff eol=lf
+package.json      text diff eol=lf
+
+# Prevent EOL conversions (but treat as text)
+*.xmp    -text
+*.nuspec -text
+*.nunit  -text
+tsd.json -text
+*.vcxproj.filters    -text
+repositories.config  -text
+packages.config      -text
+.idea/**/*.xml       -text
+
+
+# Denote all files that should be treated as binary and should not be modified.
+*.zip           binary
+*.ai            binary
+*.svg           binary
+*.pdf           binary
+*.jpg           binary
+*.png           binary
+*.bmp           binary
+*.psd           binary
+*.iml           binary
+*.knob          binary
+*.nupkg         binary
+*.pbxproj       binary
+*.plist         binary
+*.pbxuser       binary
+*.mode1v3       binary
+*.perspectivev3 binary
