@@ -30,7 +30,7 @@ apply(plugin: 'cuba')
 cuba {
     artifact {
         group = 'it.nexbit.cuba.security.forgotpassword'
-        version = '0.1.0'
+        version = '0.1.1'
         isSnapshot = false
     }
     tomcat {
