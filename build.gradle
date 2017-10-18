@@ -22,6 +22,7 @@ def webModule = project(':nxsecfp-web')
 
 def servletApi = 'org.apache.tomcat:tomcat-servlet-api:8.0.26'
 
+def bintrayRepositoryUrl = "https://api.bintray.com/maven/pfurini/cuba-components/forgot-password/;publish=1"
 
 apply(plugin: 'idea')
 apply(plugin: 'cuba')
@@ -34,6 +35,16 @@ cuba {
     }
     tomcat {
         dir = "$project.rootDir/deploy/tomcat"
+    }
+    uploadRepository {
+        if (cuba.artifact.isSnapshot) {
+            url = System.properties['uploadRepositorySnapshot'] ?: System.env.UPLOAD_REPOSITORY_SNAPSHOT
+        } else {
+            url = System.properties['uploadRepositoryRelease'] ?: System.env.UPLOAD_REPOSITORY_RELEASE ?: bintrayRepositoryUrl
+        }
+
+        user = System.properties['uploadRepositoryUsername'] ?: System.env.UPLOAD_REPOSITORY_USERNAME
+        password = System.properties['uploadRepositoryPassword'] ?:System.env.UPLOAD_REPOSITORY_PASSWORD
     }
 }
 
