@@ -170,3 +170,10 @@ concatenating the values from `GlobalConfig#getWebAppUrl()` and the `ext.securit
 property
 
 In both cases, it will append a `token=<TOKEN_VALUE>` query string to the final URL.
+
+## Known Issues
+
+See the corresponding issue to find if a workaround is currently available.
+
+#### [[#2] allowAnonymous does not work for POST requests](https://github.com/pfurini/cuba-component-forgot-password/issues/2)
+
