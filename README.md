@@ -42,7 +42,7 @@ custom services too
 | ---------------- | -------------- |
 | 6.6.4            | 0.1.x          |
 
-The latest version is: `0.1.0`
+The latest version is: `0.1.1`
 
 Add custom application component to your project:
 
@@ -177,3 +177,5 @@ See the corresponding issue to find if a workaround is currently available.
 
 #### [[#2] allowAnonymous does not work for POST requests](https://github.com/pfurini/cuba-component-forgot-password/issues/2)
 
+**Help wanted:**
+#### [[#3] Add db scripts for most RDBMS engines (now missing)](https://github.com/pfurini/cuba-component-forgot-password/issues/3)
