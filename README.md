@@ -52,10 +52,11 @@ Add custom application component to your project:
 
 ## Supported DBMS engines
 
-Currently (as of version 0.1.1) this plugin supports only the following RDBMS engines:
+Currently (as of version 0.1.2) this plugin supports only the following RDBMS engines:
 
 - HSQLDB
 - PostgreSQL
+- MySQL
 
 If you want support for more, please help in creating the needed init scripts. Coordinate
 your efforts by commenting on this [issue(#3)](https://github.com/pfurini/cuba-component-forgot-password/issues/3).
