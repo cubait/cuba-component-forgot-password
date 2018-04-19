@@ -1,6 +1,6 @@
 
 buildscript {
-    ext.cubaVersion = '6.6.4'
+    ext.cubaVersion = '6.8.6'
     repositories {
         maven {
             url 'https://repo.cuba-platform.com/content/groups/work'
@@ -220,7 +220,7 @@ task restart(dependsOn: ['stop', ':nxsecfp-core:deploy', ':nxsecfp-web:deploy'],
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.4'
+    gradleVersion = '4.3.1'
 }
 
 apply from: 'extra.gradle'
