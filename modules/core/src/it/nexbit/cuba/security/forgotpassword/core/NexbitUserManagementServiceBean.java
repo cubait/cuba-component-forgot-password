@@ -57,6 +57,9 @@ public class NexbitUserManagementServiceBean implements NexbitUserManagementServ
     protected Resources resources;
 
     @Inject
+    protected Scripting scripting;
+
+    @Inject
     protected MessageTools messageTools;
 
     @Inject
@@ -73,7 +76,7 @@ public class NexbitUserManagementServiceBean implements NexbitUserManagementServ
     public User findUser(@NotNull String loginOrEmail) {
         checkNotNullArgument(loginOrEmail, "loginOrEmail must not be null");
         try {
-            return loginWorkerBean.loadUser(loginOrEmail);
+            return authenticationProvider.loadUser(loginOrEmail);
         } catch (LoginException e) {
             return null;
         }
@@ -203,7 +206,7 @@ public class NexbitUserManagementServiceBean implements NexbitUserManagementServ
         final String resetPasswordBodyTemplate = forgotPasswordConfig.getResetPasswordLinkEmailBodyTemplate();
         final String resetPasswordSubjectTemplate = forgotPasswordConfig.getResetPasswordLinkEmailSubjectTemplate();
 
-        final SimpleTemplateEngine templateEngine = new SimpleTemplateEngine();
+        final SimpleTemplateEngine templateEngine = new SimpleTemplateEngine(scripting.getClassLoader());
 
         Map<String, Template> localizedBodyTemplates = new HashMap<>();
         Map<String, Template> localizedSubjectTemplates = new HashMap<>();
