@@ -9,6 +9,7 @@ import it.nexbit.cuba.security.forgotpassword.web.sys.NexbitLinkHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
 import java.util.Map;
 
 public class NexbitAppUI extends AppUI {
@@ -22,10 +23,7 @@ public class NexbitAppUI extends AppUI {
             //noinspection unchecked
             Map<String, String> params =
                     (Map<String, String>) wrappedSession.getAttribute(LAST_REQUEST_PARAMS_ATTR);
-            if (params == null) {
-                log.warn("Unable to process the external link: lastRequestParams not found in session");
-                return;
-            }
+            params = params != null ? params : Collections.emptyMap();
 
             try {
                 LinkHandler linkHandler = AppBeans.getPrototype(LinkHandler.NAME, app, action, params);

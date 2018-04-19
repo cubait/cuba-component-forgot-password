@@ -1,8 +1,12 @@
 package it.nexbit.cuba.security.forgotpassword.web.sys;
 
 import com.haulmont.cuba.web.App;
+import com.haulmont.cuba.web.AppUI;
 import com.haulmont.cuba.web.Connection;
 import com.haulmont.cuba.web.sys.LinkHandler;
+import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinService;
+import com.vaadin.server.WrappedSession;
 import it.nexbit.cuba.security.forgotpassword.web.loginwindow.NexbitAppLoginWindow;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -13,7 +17,7 @@ import java.util.Map;
 public class NexbitLinkHandler extends LinkHandler {
     public static final String RESET_ACTION = "reset";
 
-    private Logger log = LoggerFactory.getLogger(NexbitLinkHandler.class);
+    private final Logger log = LoggerFactory.getLogger(NexbitLinkHandler.class);
 
     public NexbitLinkHandler(App app, String action, Map<String, String> requestParams) {
         super(app, action, requestParams);
@@ -40,7 +44,10 @@ public class NexbitLinkHandler extends LinkHandler {
                     log.warn("no token found for reset link action");
                 }
             } finally {
-                requestParams.clear();
+                VaadinRequest request = VaadinService.getCurrentRequest();
+                WrappedSession wrappedSession = request.getWrappedSession();
+                wrappedSession.removeAttribute(AppUI.LAST_REQUEST_PARAMS_ATTR);
+                wrappedSession.removeAttribute(AppUI.LAST_REQUEST_ACTION_ATTR);
             }
         } else {
             super.handle();
