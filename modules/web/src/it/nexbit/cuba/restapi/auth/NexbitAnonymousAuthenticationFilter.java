@@ -29,7 +29,7 @@ import java.util.UUID;
  * This filter must be invoked after the
  * {@link org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationProcessingFilter}
  */
-public class NexbitAnonymousAuthenticationFilter implements Filter{
+public class NexbitAnonymousAuthenticationFilter implements Filter {
 
     private static final String REST_BASE_PATH = "/rest/v2/";
     private static final int REST_BASE_PATH_LEN = REST_BASE_PATH.length();
