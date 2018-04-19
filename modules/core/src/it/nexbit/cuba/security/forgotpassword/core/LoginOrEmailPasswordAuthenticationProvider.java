@@ -5,15 +5,29 @@
 package it.nexbit.cuba.security.forgotpassword.core;
 
 import com.haulmont.cuba.core.EntityManager;
+import com.haulmont.cuba.core.Persistence;
 import com.haulmont.cuba.core.Query;
-import com.haulmont.cuba.security.app.LoginWorkerBean;
+import com.haulmont.cuba.core.global.Messages;
+import com.haulmont.cuba.security.auth.providers.LoginPasswordAuthenticationProvider;
 import com.haulmont.cuba.security.entity.User;
 import com.haulmont.cuba.security.global.LoginException;
 
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 import java.util.List;
 
-public class NexbitLoginWorkerBean extends LoginWorkerBean {
+/**
+ * Extend the built-in LoginOrEmailPasswordAuthenticationProvider by adding the ability to authenticate
+ * using the user's email, in addition to the login name.
+ *
+ * @implNote Requires a UNIQUE constraint on the email field of the User entity.
+ */
+public class LoginOrEmailPasswordAuthenticationProvider extends LoginPasswordAuthenticationProvider {
+
+    @Inject
+    public LoginOrEmailPasswordAuthenticationProvider(Persistence persistence, Messages messages) {
+        super(persistence, messages);
+    }
 
     @Nullable
     @Override

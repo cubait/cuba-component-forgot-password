@@ -39,7 +39,7 @@ public class NexbitUserManagementServiceBean implements NexbitUserManagementServ
     private final Logger log = LoggerFactory.getLogger(NexbitUserManagementService.class);
 
     @Inject
-    protected NexbitLoginWorkerBean loginWorkerBean;
+    protected LoginOrEmailPasswordAuthenticationProvider authenticationProvider;
 
     @Inject
     protected Persistence persistence;
