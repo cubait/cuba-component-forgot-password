@@ -3,7 +3,11 @@ package it.nexbit.cuba.restapi.auth;
 import com.haulmont.cuba.core.global.GlobalConfig;
 import com.haulmont.cuba.core.sys.AppContext;
 import com.haulmont.cuba.core.sys.SecurityContext;
+import com.haulmont.cuba.security.app.TrustedClientService;
+import com.haulmont.cuba.security.global.LoginException;
+import com.haulmont.cuba.security.global.UserSession;
 import com.haulmont.restapi.auth.CubaAnonymousAuthenticationToken;
+import com.haulmont.restapi.config.RestApiConfig;
 import it.nexbit.cuba.restapi.RestServicesConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +19,6 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.UUID;
 
 /**
  * This filter is used for anonymous access to CUBA REST API. If no Authorization header is present in the request and
@@ -38,6 +41,12 @@ public class NexbitAnonymousAuthenticationFilter implements Filter {
 
     @Inject
     protected GlobalConfig globalConfig;
+
+    @Inject
+    protected RestApiConfig restApiConfig;
+
+    @Inject
+    protected TrustedClientService trustedClientService;
 
     @Inject
     protected RestServicesConfiguration restServicesConfiguration;
@@ -70,11 +79,17 @@ public class NexbitAnonymousAuthenticationFilter implements Filter {
         }
         if (isAnonymous) {
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
-                UUID anonymousSessionId = globalConfig.getAnonymousSessionId();
+                UserSession anonymousSession;
+                try {
+                    anonymousSession = trustedClientService.getAnonymousSession(restApiConfig.getTrustedClientPassword());
+                } catch (LoginException e) {
+                    throw new RuntimeException("Unable to obtain anonymous session for REST", e);
+                }
+
                 CubaAnonymousAuthenticationToken anonymousAuthenticationToken =
                         new CubaAnonymousAuthenticationToken("anonymous", AuthorityUtils.createAuthorityList("ROLE_CUBA_ANONYMOUS"));
                 SecurityContextHolder.getContext().setAuthentication(anonymousAuthenticationToken);
-                AppContext.setSecurityContext(new SecurityContext(anonymousSessionId));
+                AppContext.setSecurityContext(new SecurityContext(anonymousSession));
             } else {
                 log.debug("SecurityContextHolder not populated with cuba anonymous token, as it already contained: '{}'",
                         SecurityContextHolder.getContext().getAuthentication());
