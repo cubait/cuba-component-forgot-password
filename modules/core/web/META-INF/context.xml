@@ -27,7 +27,7 @@
           name="jdbc/CubaDS"
           password="postgres"
           type="javax.sql.DataSource"
-          url="jdbc:postgresql://localhost/nxsecfp"
+          url="jdbc:postgresql://localhost:54322/nxsecfp"
           username="postgres"/>-->
     <!--<Resource driverClassName="oracle.jdbc.OracleDriver"
           maxIdle="2"

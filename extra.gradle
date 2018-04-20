@@ -1,0 +1,23 @@
+task startPostgres(type: Exec, description: 'Starts and initialize PostgreSQL docker container') {
+    commandLine './docker/postgres.sh', 'start'
+}
+
+task stopPostgres(type: Exec, description: 'Stops and destroys PostgreSQL docker container') {
+    commandLine './docker/postgres.sh', 'stop'
+}
+
+task startMssql(type: Exec, description: 'Starts and initialize MSSQL docker container') {
+    commandLine './docker/mssql.sh', 'start'
+}
+
+task stopMssql(type: Exec, description: 'Stops and destroys MSSQL docker container') {
+    commandLine './docker/mssql.sh', 'stop'
+}
+
+task startOracle(type: Exec, description: 'Starts and initialize Oracle docker container') {
+    commandLine './docker/oracle.sh', 'start'
+}
+
+task stopOracle(type: Exec, description: 'Stops and destroys Oracle docker container') {
+    commandLine './docker/oracle.sh', 'stop'
+}
