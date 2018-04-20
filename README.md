@@ -1,12 +1,17 @@
 [![license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Semver](http://img.shields.io/SemVer/2.0.0.png)](http://semver.org/spec/v2.0.0.html)
+[![Generic badge](https://img.shields.io/badge/API%20docs-HERE-orange.svg)][2]
+[![Run in Postman](https://run.pstmn.io/button.svg)][1]
 
 # CUBA Forgot Password Component
 
 This application component gives the following features once added to a CUBA project:
 
-- Enables logging in by both login name and email (this works also when using REST API)
-- Can display an optional _Forgot password_ link in the main login window, allowing users to send 
+- Enables displaying an optional _Forgot password_ link in the main login window, allowing users to send 
 themselves an email with a reset password link
+- Enables logging in by both login name and email (this works also when using REST API). **PLEASE NOTE**
+that requires a `UNIQUE` constraint on the `email` attribute of the `User` entity (simply put, users'
+emails must be unique in the system)
 - Exposes a new REST service (_extsec_UserManagementService_) that enables REST clients to use the
 forgot password functionality via API calls
 - Adds an _allowAnonymous_ boolean attribute to the _rest-services.xml_ file, allowing for only some
@@ -41,8 +46,9 @@ custom services too
 | Platform Version | Add-on Version |
 | ---------------- | -------------- |
 | 6.6.4            | 0.1.x          |
+| 6.8.6            | 0.2.x          |
 
-The latest version is: `0.1.1`
+The latest version is: `0.2.0`
 
 Add custom application component to your project:
 
@@ -52,13 +58,13 @@ Add custom application component to your project:
 
 ## Supported DBMS engines
 
-Currently (as of version 0.1.1) this plugin supports only the following RDBMS engines:
+Currently (as of version 0.2.0) this plugin supports the following RDBMS engines:
 
 - HSQLDB
 - PostgreSQL
-
-If you want support for more, please help in creating the needed init scripts. Coordinate
-your efforts by commenting on this [issue(#3)](https://github.com/pfurini/cuba-component-forgot-password/issues/3).
+- MySQL/MariaDB 10.x (thanks to Mario David)
+- Microsoft SQL Server (tested against *2017-GA Express* on Ubuntu 16.04)
+- Oracle 11g+ (tested against *Oracle Express Edition 11g*)
 
 ## Created tables
 
@@ -164,7 +170,12 @@ The following are the methods exposed by the `extsec_UserManagementService`
 </services>
 ```
 
-Please see the JavaDoc documentation on the interface methods for explanation of their usage and parameters.
+Consult the online documentation at [this link][2],
+or the JavaDoc documentation on the interface methods for explanation of their usage and parameters.
+
+You can use the following button to open a collection of requests in the [Postman](https://www.getpostman.com/) application:
+
+[![Run in Postman](https://run.pstmn.io/button.svg)][1]
 
 #### Usage Notes
 
@@ -193,5 +204,5 @@ See the corresponding issue to find if a workaround is currently available.
 
 #### [[#2] allowAnonymous does not work for POST requests](https://github.com/pfurini/cuba-component-forgot-password/issues/2)
 
-**Help wanted:**
-#### [[#3] Add db scripts for most RDBMS engines (now missing)](https://github.com/pfurini/cuba-component-forgot-password/issues/3)
+[1]: https://app.getpostman.com/run-collection/f7b921d260a173059894#?env%5Bsec-forgot-password%20TEST%5D=W3sia2V5IjoiYmFzZXVybCIsInZhbHVlIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2FwcC9yZXN0IiwiZW5hYmxlZCI6dHJ1ZSwidHlwZSI6InRleHQifV0=
+[2]: https://documenter.getpostman.com/view/48162/sec-forgot-password-cuba/RW1Vr2Zh
