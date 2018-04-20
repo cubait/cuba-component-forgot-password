@@ -24,22 +24,23 @@ custom services too
 
 1. Add the following maven repository `https://dl.bintray.com/pfurini/cuba-components` to the build.gradle of your CUBA application:
 
-
-    buildscript {
-        
-        //...
-        
-        repositories {
-        
-            // ...
-        
-            maven {
-                url  "https://dl.bintray.com/pfurini/cuba-components"
-            }
-        }
-        
+```
+buildscript {
+    
+    //...
+    
+    repositories {
+    
         // ...
+    
+        maven {
+            url  "https://dl.bintray.com/pfurini/cuba-components"
+        }
     }
+    
+    // ...
+}
+```
 
 2. Select a version of the add-on which is compatible with the platform version used in your project:
 
