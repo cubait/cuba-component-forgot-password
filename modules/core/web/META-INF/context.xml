@@ -11,4 +11,22 @@
               username="sa"/>
     <!-- Switch off session serialization -->
     <Manager pathname=""/>
+    <!--<Resource driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+          maxIdle="2"
+          maxTotal="20"
+          maxWaitMillis="5000"
+          name="jdbc/CubaDS"
+          password="Pass.123"
+          type="javax.sql.DataSource"
+          url="jdbc:sqlserver://localhost;databaseName=nxsecfp"
+          username="sa"/>-->
+    <!--<Resource driverClassName="org.postgresql.Driver"
+          maxIdle="2"
+          maxTotal="20"
+          maxWaitMillis="5000"
+          name="jdbc/CubaDS"
+          password="postgres"
+          type="javax.sql.DataSource"
+          url="jdbc:postgresql://localhost/nxsecfp"
+          username="postgres"/>-->
 </Context>
