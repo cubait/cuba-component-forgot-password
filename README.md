@@ -130,7 +130,7 @@ ext.security.resetPasswordLinkTemplateBody = /it/nexbit/cuba/security/forgotpass
 ext.security.resetPasswordLinkTemplateSubject = /it/nexbit/cuba/security/forgotpassword/app/email/reset-password-link-subject.gsp
 ```
 You can find built-in templates here: [Default email templates](https://github.com/pfurini/cuba-component-forgot-password/tree/master/modules/global/src/it/nexbit/cuba/security/forgotpassword/app/email).
-Remember that they use the same mechanism described here in the official docs: https://doc.cuba-platform.com/manual-6.6/users.html, so
+Remember that they use the same mechanism described here in the official docs: https://doc.cuba-platform.com/manual-6.8/users.html, so
 they can be localized adding a locale suffix, and they can also be located or overridden in the tomcat configuration directory, with 
 the properties added to the `local.app.properties` file.
 
