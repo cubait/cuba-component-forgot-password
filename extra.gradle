@@ -21,3 +21,11 @@ task startOracle(type: Exec, description: 'Starts and initialize Oracle docker c
 task stopOracle(type: Exec, description: 'Stops and destroys Oracle docker container') {
     commandLine './docker/oracle.sh', 'stop'
 }
+
+task startMysql(type: Exec, description: 'Starts and initialize MySQL(MariaDB) docker container') {
+    commandLine './docker/mysql.sh', 'start'
+}
+
+task stopMysql(type: Exec, description: 'Stops and destroys MySQL(MariaDB) docker container') {
+    commandLine './docker/mysql.sh', 'stop'
+}
