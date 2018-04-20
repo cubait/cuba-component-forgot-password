@@ -1,31 +1,47 @@
-task startPostgres(type: Exec, description: 'Starts and initialize PostgreSQL docker container') {
-    commandLine './docker/postgres.sh', 'start'
+task startPostgres(type: Exec, group: 'Docker', description: 'Starts and initialize PostgreSQL docker container') {
+    doLast {
+        commandLine './docker/postgres.sh', 'start'
+    }
 }
 
-task stopPostgres(type: Exec, description: 'Stops and destroys PostgreSQL docker container') {
-    commandLine './docker/postgres.sh', 'stop'
+task stopPostgres(type: Exec, group: 'Docker', description: 'Stops and destroys PostgreSQL docker container') {
+    doLast {
+        commandLine './docker/postgres.sh', 'stop'
+    }
 }
 
-task startMssql(type: Exec, description: 'Starts and initialize MSSQL docker container') {
-    commandLine './docker/mssql.sh', 'start'
+task startMssql(type: Exec, group: 'Docker', description: 'Starts and initialize MSSQL docker container') {
+    doLast {
+        commandLine './docker/mssql.sh', 'start'
+    }
 }
 
-task stopMssql(type: Exec, description: 'Stops and destroys MSSQL docker container') {
-    commandLine './docker/mssql.sh', 'stop'
+task stopMssql(type: Exec, group: 'Docker', description: 'Stops and destroys MSSQL docker container') {
+    doLast {
+        commandLine './docker/mssql.sh', 'stop'
+    }
 }
 
-task startOracle(type: Exec, description: 'Starts and initialize Oracle docker container') {
-    commandLine './docker/oracle.sh', 'start'
+task startOracle(type: Exec, group: 'Docker', description: 'Starts and initialize Oracle docker container') {
+    doLast {
+        commandLine './docker/oracle.sh', 'start'
+    }
 }
 
-task stopOracle(type: Exec, description: 'Stops and destroys Oracle docker container') {
-    commandLine './docker/oracle.sh', 'stop'
+task stopOracle(type: Exec, group: 'Docker', description: 'Stops and destroys Oracle docker container') {
+    doLast {
+        commandLine './docker/oracle.sh', 'stop'
+    }
 }
 
-task startMysql(type: Exec, description: 'Starts and initialize MySQL(MariaDB) docker container') {
-    commandLine './docker/mysql.sh', 'start'
+task startMysql(type: Exec, group: 'Docker', description: 'Starts and initialize MySQL(MariaDB) docker container') {
+    doLast {
+        commandLine './docker/mysql.sh', 'start'
+    }
 }
 
-task stopMysql(type: Exec, description: 'Stops and destroys MySQL(MariaDB) docker container') {
-    commandLine './docker/mysql.sh', 'stop'
+task stopMysql(type: Exec, group: 'Docker', description: 'Stops and destroys MySQL(MariaDB) docker container') {
+    doLast {
+        commandLine './docker/mysql.sh', 'stop'
+    }
 }
