@@ -3,6 +3,8 @@ package it.nexbit.cuba.restapi;
 import com.haulmont.bali.util.Dom4j;
 import com.haulmont.cuba.core.global.AppBeans;
 import org.dom4j.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -10,6 +12,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class RestServicesConfiguration extends com.haulmont.restapi.config.RestServicesConfiguration {
+
+    private static final Logger log = LoggerFactory.getLogger(RestServicesConfiguration.class);
 
     @Override
     protected void loadConfig(Element rootElem) {

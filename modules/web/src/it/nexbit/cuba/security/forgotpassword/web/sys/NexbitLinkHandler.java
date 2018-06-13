@@ -17,7 +17,7 @@ import java.util.Map;
 public class NexbitLinkHandler extends LinkHandler {
     public static final String RESET_ACTION = "reset";
 
-    private final Logger log = LoggerFactory.getLogger(NexbitLinkHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(NexbitLinkHandler.class);
 
     public NexbitLinkHandler(App app, String action, Map<String, String> requestParams) {
         super(app, action, requestParams);

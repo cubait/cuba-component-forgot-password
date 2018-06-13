@@ -37,7 +37,7 @@ public class NexbitAnonymousAuthenticationFilter implements Filter {
     private static final String REST_BASE_PATH = "/rest/v2/";
     private static final int REST_BASE_PATH_LEN = REST_BASE_PATH.length();
 
-    private final Logger log = LoggerFactory.getLogger(NexbitAnonymousAuthenticationFilter.class);
+    private static final Logger log = LoggerFactory.getLogger(NexbitAnonymousAuthenticationFilter.class);
 
     @Inject
     protected GlobalConfig globalConfig;

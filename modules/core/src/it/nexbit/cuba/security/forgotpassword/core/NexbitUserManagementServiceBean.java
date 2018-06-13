@@ -36,7 +36,7 @@ import static com.haulmont.bali.util.Preconditions.checkNotNullArgument;
 @Service(NexbitUserManagementService.NAME)
 public class NexbitUserManagementServiceBean implements NexbitUserManagementService {
 
-    private final Logger log = LoggerFactory.getLogger(NexbitUserManagementService.class);
+    private static final Logger log = LoggerFactory.getLogger(NexbitUserManagementService.class);
 
     @Inject
     protected LoginOrEmailPasswordAuthenticationProvider authenticationProvider;
