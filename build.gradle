@@ -28,7 +28,7 @@ cuba {
     artifact {
         group = 'it.nexbit.cuba.security.forgotpassword'
         version = '1.0.0'
-        isSnapshot = true
+        isSnapshot = false
     }
     tomcat {
         dir = "$project.rootDir/deploy/tomcat"
@@ -171,10 +171,6 @@ configure(webModule) {
         appJars('nxsecfp-global', 'nxsecfp-web')
     }
 }
-
-
-
-
 
 task undeploy(type: Delete, dependsOn: ':nxsecfp-web:cleanConf') {
     delete("$cuba.tomcat.dir/shared")
