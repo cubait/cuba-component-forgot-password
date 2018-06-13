@@ -17,7 +17,6 @@ buildscript {
 
 def globalModule = project(':nxsecfp-global')
 def coreModule = project(':nxsecfp-core')
-def guiModule = project(':nxsecfp-gui')
 def webModule = project(':nxsecfp-web')
 
 def servletApi = 'javax.servlet:javax.servlet-api:3.1.0'
@@ -55,7 +54,7 @@ dependencies {
 
 def hsql = 'org.hsqldb:hsqldb:2.2.9'
 
-configure([globalModule, coreModule, guiModule, webModule]) {
+configure([globalModule, coreModule, webModule]) {
     apply(plugin: 'java')
     apply(plugin: 'maven')
     apply(plugin: 'idea')
@@ -136,19 +135,6 @@ configure(coreModule) {
     }
 }
 
-configure(guiModule) {
-    dependencies {
-        compile(globalModule)
-
-    }
-
-    task deployConf(type: Copy) {
-        from file('src')
-        include "it/nexbit/cuba/security/forgotpassword/**"
-        into "$cuba.tomcat.dir/conf/nxsecfp"
-    }
-}
-
 configure(webModule) {
     configurations {
         webcontent
@@ -156,7 +142,7 @@ configure(webModule) {
 
     dependencies {
         provided(servletApi)
-        compile(guiModule)
+        compile(globalModule)
 
     }
     
@@ -194,7 +180,7 @@ configure(webModule) {
 
     task deploy(dependsOn: [assemble, cleanConf], type: CubaDeployment) {
         appName = 'nxsecfp'
-        appJars('nxsecfp-global', 'nxsecfp-gui', 'nxsecfp-web')
+        appJars('nxsecfp-global', 'nxsecfp-web')
     }
 }
 

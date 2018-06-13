@@ -26,14 +26,8 @@
                   ext="zip"
                   name="nxsecfp-core"/>
     </module>
-    <module blocks="web,desktop"
-            dependsOn="global"
-            name="gui">
-        <artifact appJar="true"
-                  name="nxsecfp-gui"/>
-    </module>
     <module blocks="web"
-            dependsOn="gui"
+            dependsOn="global"
             name="web">
         <artifact appJar="true"
                   name="nxsecfp-web"/>

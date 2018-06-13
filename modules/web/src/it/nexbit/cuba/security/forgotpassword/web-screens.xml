@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <screen-config xmlns="http://schemas.haulmont.com/cuba/screens.xsd">
-
-    <include file="it/nexbit/cuba/security/forgotpassword/screens.xml"/>
-
     <screen id="loginWindow"
             template="it/nexbit/cuba/security/forgotpassword/web/loginwindow/nexbit-loginwindow.xml"/>
     <screen id="resetPassword"
             template="it/nexbit/cuba/security/forgotpassword/web/resetpassword/reset-password.xml"/>
-
 </screen-config>
