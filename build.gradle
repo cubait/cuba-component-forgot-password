@@ -1,6 +1,6 @@
 
 buildscript {
-    ext.cubaVersion = '6.8.6'
+    ext.cubaVersion = '6.9.0'
     repositories {
         maven {
             url 'https://repo.cuba-platform.com/content/groups/work'
@@ -20,7 +20,7 @@ def coreModule = project(':nxsecfp-core')
 def guiModule = project(':nxsecfp-gui')
 def webModule = project(':nxsecfp-web')
 
-def servletApi = 'org.apache.tomcat:tomcat-servlet-api:8.0.26'
+def servletApi = 'javax.servlet:javax.servlet-api:3.1.0'
 
 def bintrayRepositoryUrl = "https://api.bintray.com/maven/pfurini/cuba-components/forgot-password/;publish=1"
 
@@ -30,8 +30,8 @@ apply(plugin: 'cuba')
 cuba {
     artifact {
         group = 'it.nexbit.cuba.security.forgotpassword'
-        version = '0.2.0'
-        isSnapshot = false
+        version = '1.0.0'
+        isSnapshot = true
     }
     tomcat {
         dir = "$project.rootDir/deploy/tomcat"
