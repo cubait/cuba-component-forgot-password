@@ -4,7 +4,7 @@ create table NXSECFP_RESET_PASSWORD_TOKEN (
     --
     USER_ID uniqueidentifier not null,
     TOKEN varchar(64) not null,
-    EXPIRE_AT datetime2 not null,
+    EXPIRE_AT datetime not null,
     --
     primary key nonclustered (ID)
 )^
