@@ -1,6 +1,5 @@
 package it.nexbit.cuba.restapi.auth;
 
-import com.haulmont.cuba.core.global.GlobalConfig;
 import com.haulmont.cuba.core.sys.AppContext;
 import com.haulmont.cuba.core.sys.SecurityContext;
 import com.haulmont.cuba.security.app.TrustedClientService;
@@ -22,9 +21,9 @@ import java.util.Collections;
 
 /**
  * This filter is used for anonymous access to CUBA REST API. If no Authorization header is present in the request and
- * if {@link GlobalConfig#getRestAnonymousEnabled()} is true, then the anonymous user session will be set to the
+ * if {@link RestApiConfig#getRestAnonymousEnabled()} is true, then the anonymous user session will be set to the
  * {@link SecurityContext} and the request will be authenticated.
- * Service methods can be allowed anonymous access (even when the {@link GlobalConfig#getRestAnonymousEnabled()} is false)
+ * Service methods can be allowed anonymous access (even when the {@link RestApiConfig#getRestAnonymousEnabled()} is false)
  * by setting the {@code allowAnonymous} attribute to {@code true} in the {@code cuba.rest.servicesConfig} configuration file.
  * This way there's no need to globally enable anonymous access only when a few business logic is needed
  * for anonymous users.
