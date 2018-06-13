@@ -40,9 +40,6 @@ public class NexbitAnonymousAuthenticationFilter implements Filter {
     private static final Logger log = LoggerFactory.getLogger(NexbitAnonymousAuthenticationFilter.class);
 
     @Inject
-    protected GlobalConfig globalConfig;
-
-    @Inject
     protected RestApiConfig restApiConfig;
 
     @Inject
@@ -58,7 +55,7 @@ public class NexbitAnonymousAuthenticationFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        boolean isAnonymous = globalConfig.getRestAnonymousEnabled();
+        boolean isAnonymous = restApiConfig.getRestAnonymousEnabled();
         if (!isAnonymous) {
             // if global anonymous flag is not set, check if this is a service method invocation,
             // which have the allowAnonymous attribute set to true
