@@ -1,6 +1,24 @@
 #!/usr/bin/env bash
 
-[[ -z $1 ]] && echo -e "\e[91mMissing required argument: BinTray API Key\e[0m" && exit 1
+usage()
+{
+    echo
+    echo "usage: ./publish.sh <bintray_api_key> [version] [additional_bintray_params]"
+    echo
+    echo "Publish the package to Bintray, optionally specifying an artifact version."
+    echo "If [version] is not specified, the latest version is published."
+    echo
+}
 
-export UPLOAD_REPOSITORY_USERNAME=pfurini UPLOAD_REPOSITORY_PASSWORD=$1
-./gradlew uploadArchives
+if [[ -z "$BINTRAY_API_KEY" ]]; then
+    [[ -z "$1" ]] && usage && exit 1
+    BINTRAY_API_KEY=$1
+    shift
+fi
+
+if [[ -n "$1" ]] && [[ ! $1 == -P* ]]; then
+    __VERSION=-Pcuba.artifact.version=$1
+    shift
+fi
+
+./gradlew clean assemble bintrayUpload -PbintrayUser=pfurini -PbintrayApiKey=$BINTRAY_API_KEY $__VERSION $@

@@ -1,0 +1,32 @@
+subprojects {
+    apply plugin: 'com.jfrog.bintray'
+
+    bintray {
+        user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+        key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+
+        configurations = ['archives']
+
+        publish = true
+
+        dryRun = project.hasProperty('dryRun') ? project.property('dryRun') : false
+
+        // override existing artifacts?
+        override = false
+
+        // metadata
+        pkg {
+            repo = 'cuba-components'
+            name = 'forgot-password'
+
+            websiteUrl = 'https://github.com/pfurini/cuba-component-forgot-password'
+            issueTrackerUrl = 'https://github.com/pfurini/cuba-component-forgot-password/issues'
+            vcsUrl = 'https://github.com/pfurini/cuba-component-forgot-password.git'
+            githubRepo = 'pfurini/cuba-component-forgot-password'
+            githubReleaseNotesFile = 'CHANGELOG.md'
+            publicDownloadNumbers = true
+            licenses = ["Apache-2.0"]
+            labels = ['cuba', 'cuba-platform', 'cuba-component']
+        }
+    }
+}
