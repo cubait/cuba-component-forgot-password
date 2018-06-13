@@ -22,7 +22,12 @@ custom services too
 
 ## Installation
 
-1. Add the following maven repository `https://dl.bintray.com/pfurini/cuba-components` to the build.gradle of your CUBA application:
+**NOTE**: This add-on's repository is officially linked to the main CUBA repository.
+
+*You can jump straight to step 2. for instructions on how to add it to your project*, or *optionally*
+you can choose to add my repository to your project's repositories.  
+
+1. [*OPTIONAL*] Add the following maven repository `https://dl.bintray.com/pfurini/cuba-components` to the build.gradle of your CUBA application:
 
 ```
 buildscript {
@@ -42,24 +47,33 @@ buildscript {
 }
 ```
 
+Alternatively you can use **CUBA Studio** to add it: just go to the `PROJECT PROPERTIES` section,
+click `Edit`, then click on the cog icon next to the `Repository` field.
+In the dialog that opens, click on `+ Add` and enter `https://dl.bintray.com/pfurini/cuba-components`
+in the `URL` field, then click `OK`. Finally, select the just added repository in the upper list,
+and click `Use in the project` button, and then press `OK`.
+
 2. Select a version of the add-on which is compatible with the platform version used in your project:
 
-| Platform Version | Add-on Version |
-| ---------------- | -------------- |
-| 6.6.4            | 0.1.x          |
-| 6.8.6            | 0.2.x          |
+| Platform Version | Add-on Version | Coordinates
+| ---------------- | -------------- | -----------
+| 6.6.*            | 0.1.1          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:0.1.1
+| 6.7.*            | *N/A*          | *not compatible*
+| 6.8.*            | 0.2.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:0.2.0
+| 6.9.*            | 1.0.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:1.0.0
 
-The latest version is: `0.2.0`
+The latest stable version is: `1.0.0`
 
-Add custom application component to your project:
+Add custom application component to your project. Using **CUBA Studio**, go to `PROJECT PROPERTIES` -> `Edit` and click `+` next to `Custom components`,
+then paste into the first field the appropriate coordinates for the desired version, picked from the table above.
 
-* Artifact group: `it.nexbit.cuba.security.forgotpassword`
-* Artifact name: `nxsecfp-global`
-* Version: *add-on version*
+**PLEASE NOTE** that new features are developed only in the latest releases, while only critical bug fixes
+are back-ported to older ones. Please update your CUBA version as soon as possible, if you are in need of
+some features available only in a recent release (see the [CHANGELOG](./CHANGELOG.md) for reference).
 
 ## Supported DBMS engines
 
-Currently (as of version 0.2.0) this plugin supports the following RDBMS engines:
+Since version 0.2.0 this plugin supports the following RDBMS engines:
 
 - HSQLDB
 - PostgreSQL
