@@ -71,6 +71,15 @@ then paste into the first field the appropriate coordinates for the desired vers
 are back-ported to older ones. Please update your CUBA version as soon as possible, if you are in need of
 some features available only in a recent release (see the [CHANGELOG](./CHANGELOG.md) for reference).
 
+#### BREAKING CHANGE NOTICES
+
+**1.0.0**
+- The `loginWindow` screen has been refactored a bit. You need to change your code if you have extended this screen, otherwise no action is required.
+- CUBA 6.9 makes the `Anonymous` role a *Denying* role by default. So **if you install the component in a brand new project, it will not work until you adjust the permissions for the `Anonymous` role**.
+No action is required if upgrading an existing project, or your `Anonymous` role is already configured with the needed roles.
+Please see the paragraph *Setup the Anonymous role* in the *Usage* section, for instructions on how to setup a new CUBA 6.9 project.
+ 
+
 ## Supported DBMS engines
 
 Since version 0.2.0 this plugin supports the following RDBMS engines:
@@ -88,6 +97,18 @@ Since version 0.2.0 this plugin supports the following RDBMS engines:
 | NXSECFP_RESET_PASSWORD_TOKEN | Holds generated reset tokens, alongside the linked User entity and timestamp of expiration |
 
 ## Usage
+
+### Setup the Anonymous role (1.0.0 only)
+
+If you install the `1.0.0` add-on version on a brand new CUBA 6.9 project, please follow these instruction to setup your `Anonymous` role.
+
+1. Login as `Administrator`
+1. Open the `Roles` screen in the `Administration` menu
+1. Find the `Anonymous` role and edit it
+1. In the `Screens` tab expand the `Other screens` target, then find the screens listed in the following image, and set them to `allow`
+![](./screenshots/anonymous-role-setup.png "Screens to allow for the Anonymous role")
+1. Finally `Save and Close` the edit screen, and restart the application 
+
 
 ### Using the _allowAnonymous_ attribute
 
