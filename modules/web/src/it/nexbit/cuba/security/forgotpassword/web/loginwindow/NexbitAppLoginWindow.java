@@ -6,10 +6,12 @@ package it.nexbit.cuba.security.forgotpassword.web.loginwindow;
 
 import com.haulmont.bali.util.ParamsMap;
 import com.haulmont.cuba.gui.WindowManager;
-import com.haulmont.cuba.gui.components.HBoxLayout;
+import com.haulmont.cuba.gui.components.Label;
+import com.haulmont.cuba.gui.components.LinkButton;
 import com.haulmont.cuba.gui.components.Window;
 import com.haulmont.cuba.security.entity.User;
 import com.haulmont.cuba.web.app.loginwindow.AppLoginWindow;
+import com.vaadin.server.Page;
 import it.nexbit.cuba.security.forgotpassword.app.NexbitUserManagementService;
 import it.nexbit.cuba.security.forgotpassword.config.ForgotPasswordConfig;
 import it.nexbit.cuba.security.forgotpassword.web.resetpassword.ResetPassword;
@@ -28,14 +30,19 @@ public class NexbitAppLoginWindow extends AppLoginWindow {
     protected ForgotPasswordConfig forgotPasswordConfig;
 
     @Inject
-    protected HBoxLayout resetControls;
+    protected Label resetPasswordSpacer;
+    @Inject
+    protected LinkButton resetPasswordButton;
 
     @Override
     public void init(Map<String, Object> params) {
         super.init(params);
 
+        Page.getCurrent().getStyles().add(".nx-reset-button{padding-left:0 !important;}");
+
         if (forgotPasswordConfig.getShowResetPasswordLinkAtLogin()) {
-            resetControls.setVisible(true);
+            resetPasswordSpacer.setVisible(true);
+            resetPasswordButton.setVisible(true);
         }
     }
 
