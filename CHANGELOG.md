@@ -9,6 +9,7 @@ All releases are documented here. This project follows *Semantic Versioning* pri
 - Refactored the reset link handler mechanism by using the new 6.9 support
 - Updated all init db scripts to adhere to new naming conventions in 6.9
 - Fixed `start*` and `stop*` gradle tasks that were using a wrong syntax
+- [**BREAKING CHANGE**] Refactored the login window (you need to update your code if you have extended the `loginWindow` screen)
 
 ## [0.2.0] - 2018-04-20
 
