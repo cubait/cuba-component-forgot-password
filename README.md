@@ -106,6 +106,7 @@ If you install the `1.0.0` add-on version on a brand new CUBA 6.9 project, pleas
 1. Open the `Roles` screen in the `Administration` menu
 1. Find the `Anonymous` role and edit it
 1. In the `Screens` tab expand the `Other screens` target, then find the screens listed in the following image, and set them to `allow`
+
 ![](./screenshots/anonymous-role-setup.png "Screens to allow for the Anonymous role")
 1. Finally `Save and Close` the edit screen, and restart the application 
 
