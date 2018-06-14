@@ -100,7 +100,7 @@ Since version 0.2.0 this plugin supports the following RDBMS engines:
 
 ### Setup the Anonymous role (1.0.0 only)
 
-If you install the `1.0.0` add-on version on a brand new CUBA 6.9 project, please follow these instruction to setup your `Anonymous` role.
+If you install the `1.0.0` add-on version on a brand new CUBA 6.9 project, please follow these instructions to setup your `Anonymous` role.
 
 1. Login as `Administrator`
 1. Open the `Roles` screen in the `Administration` menu
