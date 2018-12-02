@@ -29,7 +29,7 @@ cuba {
     artifact {
         group = 'it.nexbit.cuba.security.forgotpassword'
         version = "2.0.0"
-        isSnapshot = true
+        isSnapshot = false
     }
     tomcat {
         dir = "$project.rootDir/deploy/tomcat"

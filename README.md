@@ -14,10 +14,6 @@ that requires a `UNIQUE` constraint on the `email` attribute of the `User` entit
 emails must be unique in the system)
 - Exposes a new REST service (_extsec_UserManagementService_) that enables REST clients to use the
 forgot password functionality via API calls
-- Adds an _allowAnonymous_ boolean attribute to the _rest-services.xml_ file, allowing for only some
-methods to be called without an authorization token via REST API (v2). This is the mechanism that
-allows the _extsec_UserManagementService_ to be used before authentication, but can be leveraged by
-custom services too
 
 
 ## Installation
@@ -61,8 +57,9 @@ and click `Use in the project` button, and then press `OK`.
 | 6.7.*            | *N/A*          | *not compatible*
 | 6.8.*            | 0.2.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:0.2.0
 | 6.9.*            | 1.0.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:1.0.0
+| 6.10.*           | 2.0.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:2.0.0
 
-The latest stable version is: `1.0.0`
+The latest stable version is: `2.0.0`
 
 Add custom application component to your project. Using **CUBA Studio**, go to `PROJECT PROPERTIES` -> `Edit` and click `+` next to `Custom components`,
 then paste into the first field the appropriate coordinates for the desired version, picked from the table above.
@@ -79,6 +76,11 @@ some features available only in a recent release (see the [CHANGELOG](./CHANGELO
 No action is required if upgrading an existing project, or your `Anonymous` role is already configured with the needed roles.
 Please see the paragraph *Setup the Anonymous role* in the *Usage* section, for instructions on how to setup a new CUBA 6.9 project.
  
+**2.0.0**
+- The `loginWindow` screen has been refactored to follow the changes made in CUBA 6.10 for the new *Hover* theme. You need to change your code if you have extended this screen, otherwise no action is required.
+- The extended `allowAnonymous` attribute in _rest-services.xml_ file has been removed. Please use the `anonymousAllowed` standard attribute introduced in CUBA 6.10 instead.
+  Remember to change the attribute `xmlns="http://schemas.haulmont.com/cuba/rest-services-v2-ext.xsd"` in your _rest-services.xml_ to the standard `xmlns="http://schemas.haulmont.com/cuba/rest-services-v2.xsd"` one.
+
 
 ## Supported DBMS engines
 
@@ -98,9 +100,9 @@ Since version 0.2.0 this plugin supports the following RDBMS engines:
 
 ## Usage
 
-### Setup the Anonymous role (1.0.0 only)
+### Setup the Anonymous role (1.0.0+ only)
 
-If you install the `1.0.0` add-on version on a brand new CUBA 6.9 project, please follow these instructions to setup your `Anonymous` role.
+If you install the `1.0.0` or later add-on version on a brand new CUBA project, please follow these instructions to setup your `Anonymous` role.
 
 1. Login as `Administrator`
 1. Open the `Roles` screen in the `Administration` menu
@@ -110,40 +112,6 @@ If you install the `1.0.0` add-on version on a brand new CUBA 6.9 project, pleas
 ![](./screenshots/anonymous-role-setup.png "Screens to allow for the Anonymous role")
 1. Finally `Save and Close` the edit screen, and restart the application 
 
-
-### Using the _allowAnonymous_ attribute
-
-The following step is required only if you already have (or plan to have) services for which you
-want to leverage the extended `allowAnonymous="true"` attribute.
-
-First, follow the normal procedure to add and register a new `rest-services.xml` file to your project.
-
-Then open the `rest-services.xml` file and change the following line:
-
-```xml
-<services xmlns="http://schemas.haulmont.com/cuba/rest-services-v2.xsd">
-```
-
-to this line:
-
-```xml
-<services xmlns="http://schemas.haulmont.com/cuba/rest-services-v2-ext.xsd">
-```
-
-This will allow editing the xml file inside an IDE, without it complaining for an unknown attribute.
-
-Here is a sample `rest-services.xml` file using the new attribute:
-
-```xml
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<services xmlns="http://schemas.haulmont.com/cuba/rest-services-v2-ext.xsd">
-    <service name="testsec_NewService">
-        <method name="someMethod" allowAnonymous="true">
-            <param name="someArg"/>
-        </method>
-    </service>
-</services>
-```
 
 ### Using the Forgot Password functionality
 
@@ -187,20 +155,20 @@ The following are the methods exposed by the `extsec_UserManagementService`
 <?xml version="1.0" encoding="UTF-8"?>
 <services xmlns="http://schemas.haulmont.com/cuba/rest-services-v2-ext.xsd">
     <service name="extsec_UserManagementService">
-        <method name="checkUserExist" allowAnonymous="true">
+        <method name="checkUserExist" anonymousAllowed="true">
             <param name="loginOrEmail"/>
         </method>
-        <method name="sendResetPasswordLink" allowAnonymous="true">
+        <method name="sendResetPasswordLink" anonymousAllowed="true">
             <param name="loginOrEmail"/>
         </method>
-        <method name="checkResetPasswordToken" allowAnonymous="true">
+        <method name="checkResetPasswordToken" anonymousAllowed="true">
             <param name="token"/>
         </method>
-        <method name="changePasswordWithToken" allowAnonymous="true">
+        <method name="changePasswordWithToken" anonymousAllowed="true">
             <param name="token"/>
             <param name="password"/>
         </method>
-        <method name="deleteResetPasswordToken" allowAnonymous="true">
+        <method name="deleteResetPasswordToken" anonymousAllowed="true">
             <param name="token"/>
         </method>
     </service>
@@ -238,8 +206,6 @@ In both cases, it will append a `token=<TOKEN_VALUE>` query string to the final 
 ## Known Issues
 
 See the corresponding issue to find if a workaround is currently available.
-
-#### [[#2] allowAnonymous does not work for POST requests](https://github.com/pfurini/cuba-component-forgot-password/issues/2)
 
 [1]: https://app.getpostman.com/run-collection/f7b921d260a173059894#?env%5Bsec-forgot-password%20TEST%5D=W3sia2V5IjoiYmFzZXVybCIsInZhbHVlIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2FwcC9yZXN0IiwiZW5hYmxlZCI6dHJ1ZSwidHlwZSI6InRleHQifV0=
 [2]: https://documenter.getpostman.com/view/48162/sec-forgot-password-cuba/RW1Vr2Zh
