@@ -1,0 +1,1 @@
+[CUBA Application] Resetare parolă
