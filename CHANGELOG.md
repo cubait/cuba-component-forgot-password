@@ -2,11 +2,14 @@
 
 All releases are documented here. This project follows *Semantic Versioning* principles.
 
+## [2.1.0] - 2018-12-02
+
+- Added Romanian translation (by Sorin Federiga)
+
 ## [2.0.0] - 2018-12-02
 
 - [**BREAKING CHANGE**] Removed allowAnonymous custom attribute for REST services, now that CUBA 6.10 provides the standard anonymousAllowed attribute
 - [**BREAKING CHANGE**] Small refactorings to extended login screen to support 6.10 and Hover theme (you need to update your code if you have extended the `loginWindow` screen)
-
 
 ## [1.0.0] - 2018-06-13
 
