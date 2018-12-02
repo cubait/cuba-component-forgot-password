@@ -7,9 +7,8 @@
         <vbox id="loginWrapper"
               spacing="true">
             <vbox id="loginMainBox">
-                <grid id="loginFormLayout">
-                    <rows>
-                        <row id="resetPasswordRow">
+                <hbox id="additionalActions" margin="true,false,false,false"
+                      colspan="2" align="MIDDLE_CENTER" spacing="true">
                             <label id="resetPasswordSpacer" visible="false"/>
 
                             <linkButton id="resetPasswordButton"
@@ -17,9 +16,7 @@
                                         visible="false"
                                         caption="msg://loginWindow.resetPassword"
                                         invoke="onResetPasswordBtnClick"/>
-                        </row>
-                    </rows>
-                </grid>
+                </hbox>
             </vbox>
         </vbox>
     </layout>
