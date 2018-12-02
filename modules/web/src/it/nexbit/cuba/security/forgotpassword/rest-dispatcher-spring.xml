@@ -10,7 +10,4 @@
            http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd
 	       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 
-    <bean id="cuba_RestServicesConfiguration" class="it.nexbit.cuba.restapi.RestServicesConfiguration"/>
-    <bean id="cuba_AnonymousAuthenticationFilter" class="it.nexbit.cuba.restapi.auth.NexbitAnonymousAuthenticationFilter"/>
-
 </beans>

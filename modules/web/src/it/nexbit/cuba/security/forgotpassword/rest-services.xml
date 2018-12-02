@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<services xmlns="http://schemas.haulmont.com/cuba/rest-services-v2-ext.xsd">
+<services xmlns="http://schemas.haulmont.com/cuba/rest-services-v2.xsd">
     <service name="extsec_UserManagementService">
-        <method name="checkUserExist" allowAnonymous="true">
+        <method name="checkUserExist" anonymousAllowed="true">
             <param name="loginOrEmail"/>
         </method>
-        <method name="sendResetPasswordLink" allowAnonymous="true">
+        <method name="sendResetPasswordLink" anonymousAllowed="true">
             <param name="loginOrEmail"/>
         </method>
-        <method name="checkResetPasswordToken" allowAnonymous="true">
+        <method name="checkResetPasswordToken" anonymousAllowed="true">
             <param name="token"/>
         </method>
-        <method name="changePasswordWithToken" allowAnonymous="true">
+        <method name="changePasswordWithToken" anonymousAllowed="true">
             <param name="token"/>
             <param name="password"/>
         </method>
-        <method name="deleteResetPasswordToken" allowAnonymous="true">
+        <method name="deleteResetPasswordToken" anonymousAllowed="true">
             <param name="token"/>
         </method>
     </service>
