@@ -57,9 +57,9 @@ and click `Use in the project` button, and then press `OK`.
 | 6.7.*            | *N/A*          | *not compatible*
 | 6.8.*            | 0.2.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:0.2.0
 | 6.9.*            | 1.0.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:1.0.0
-| 6.10.*           | 2.1.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:2.1.0
+| 6.10.*           | 2.2.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:2.2.0
 
-The latest stable version is: `2.1.0`
+The latest stable version is: `2.2.0`
 
 Add custom application component to your project. Using **CUBA Studio**, go to `PROJECT PROPERTIES` -> `Edit` and click `+` next to `Custom components`,
 then paste into the first field the appropriate coordinates for the desired version, picked from the table above.
@@ -206,6 +206,15 @@ In both cases, it will append a `token=<TOKEN_VALUE>` query string to the final 
 ## Known Issues
 
 See the corresponding issue to find if a workaround is currently available.
+
+## Credits
+
+Thanks to
+
+- Mario David ([@mariodavid](https://github.com/mariodavid)) for the initial MySQL/MariaDB scripts
+- Sorin Federiga ([@sorinfederiga](https://github.com/sorinfederiga)) for the Romanian translation
+- Sergey Butentin ([@basicus](https://github.com/basicus)) for the Russian translation
+ 
 
 [1]: https://app.getpostman.com/run-collection/f7b921d260a173059894#?env%5Bsec-forgot-password%20TEST%5D=W3sia2V5IjoiYmFzZXVybCIsInZhbHVlIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2FwcC9yZXN0IiwiZW5hYmxlZCI6dHJ1ZSwidHlwZSI6InRleHQifV0=
 [2]: https://documenter.getpostman.com/view/48162/sec-forgot-password-cuba/RW1Vr2Zh
