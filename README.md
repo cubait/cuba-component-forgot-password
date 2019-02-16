@@ -213,7 +213,7 @@ Thanks to
 
 - Mario David ([@mariodavid](https://github.com/mariodavid)) for the initial MySQL/MariaDB scripts
 - Sorin Federiga ([@sorinfederiga](https://github.com/sorinfederiga)) for the Romanian translation
-- Sergey Butentin ([@basicus](https://github.com/basicus)) for the Russian translation
+- Sergey Butenin ([@basicus](https://github.com/basicus)) for the Russian translation
  
 
 [1]: https://app.getpostman.com/run-collection/f7b921d260a173059894#?env%5Bsec-forgot-password%20TEST%5D=W3sia2V5IjoiYmFzZXVybCIsInZhbHVlIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2FwcC9yZXN0IiwiZW5hYmxlZCI6dHJ1ZSwidHlwZSI6InRleHQifV0=
