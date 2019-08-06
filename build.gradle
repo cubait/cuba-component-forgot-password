@@ -1,6 +1,6 @@
 
 buildscript {
-    ext.cubaVersion = '6.10.7'
+    ext.cubaVersion = '7.0.9'
     repositories {
         maven {
             url 'https://repo.cuba-platform.com/content/groups/work'
@@ -16,19 +16,20 @@ buildscript {
     }
 }
 
-def globalModule = project(':nxsecfp-global')
-def coreModule = project(':nxsecfp-core')
-def webModule = project(':nxsecfp-web')
+def modulePrefix = 'nxsecfp'
+
+def globalModule = project(":${modulePrefix}-global" )
+def coreModule = project(":${modulePrefix}-core" )
+def webModule = project(":${modulePrefix}-web" )
 
 def servletApi = 'javax.servlet:javax.servlet-api:3.1.0'
 
-apply(plugin: 'idea')
 apply(plugin: 'cuba')
 
 cuba {
     artifact {
         group = 'it.nexbit.cuba.security.forgotpassword'
-        version = "2.2.0"
+        version = "2.3.0"
         isSnapshot = false
     }
     tomcat {
@@ -41,12 +42,11 @@ dependencies {
 
 }
 
-def hsql = 'org.hsqldb:hsqldb:2.2.9'
+def hsql = 'org.hsqldb:hsqldb:2.4.1'
 
 configure([globalModule, coreModule, webModule]) {
     apply(plugin: 'java')
     apply(plugin: 'maven')
-    apply(plugin: 'idea')
     apply(plugin: 'cuba')
 
     dependencies {
@@ -64,6 +64,12 @@ configure([globalModule, coreModule, webModule]) {
 }
 
 configure(globalModule) {
+    dependencies {
+        if (!JavaVersion.current().isJava8()) {
+            runtime('javax.xml.bind:jaxb-api:2.3.1')
+            runtime('org.glassfish.jaxb:jaxb-runtime:2.3.1')
+        }
+    }
     entitiesEnhancing {
         main { enabled = true }
     }
@@ -87,7 +93,7 @@ configure(coreModule) {
 
     dependencies {
         compile(globalModule)
-        provided(servletApi)
+        compileOnly(servletApi)
         jdbc(hsql)
         testRuntime(hsql)
 
@@ -95,7 +101,7 @@ configure(coreModule) {
 
     task cleanConf(description: 'Cleans up conf directory') {
         doLast {
-            def dir = new File(cuba.tomcat.dir, '/conf/nxsecfp-core')
+            def dir = new File(cuba.tomcat.dir, "/conf/${modulePrefix}-core" )
             if (dir.isDirectory()) {
                 ant.delete(includeemptydirs: true) {
                     fileset(dir: dir, includes: '**/*', excludes: 'local.app.properties')
@@ -105,8 +111,8 @@ configure(coreModule) {
     }
 
     task deploy(dependsOn: [assemble, cleanConf], type: CubaDeployment) {
-        appName = 'nxsecfp-core'
-        appJars('nxsecfp-global', 'nxsecfp-core')
+        appName = "${modulePrefix}-core"
+        appJars(modulePrefix + '-global', modulePrefix + '-core')
     }
 
     task createDb(dependsOn: assembleDbScripts, description: 'Creates local database', type: CubaDbCreation) {
@@ -132,7 +138,7 @@ configure(webModule) {
     }
 
     dependencies {
-        provided(servletApi)
+        compileOnly(servletApi)
         compile(globalModule)
 
     }
@@ -150,17 +156,17 @@ configure(webModule) {
     task deployConf(type: Copy) {
         from file('src')
         include "it/nexbit/cuba/security/forgotpassword/**"
-        into "$cuba.tomcat.dir/conf/nxsecfp"
+        into "$cuba.tomcat.dir/conf/${modulePrefix}"
     }
 
     task clearMessagesCache(type: CubaClearMessagesCache) {
-        appName = 'nxsecfp'
+        appName = "${modulePrefix}"
     }
     deployConf.dependsOn clearMessagesCache
 
     task cleanConf(description: 'Cleans up conf directory') {
         doLast {
-            def dir = new File(cuba.tomcat.dir, '/conf/nxsecfp')
+            def dir = new File(cuba.tomcat.dir, "/conf/${modulePrefix}" )
             if (dir.isDirectory()) {
                 ant.delete(includeemptydirs: true) {
                     fileset(dir: dir, includes: '**/*', excludes: 'local.app.properties')
@@ -170,18 +176,18 @@ configure(webModule) {
     }
 
     task deploy(dependsOn: [assemble, cleanConf], type: CubaDeployment) {
-        appName = 'nxsecfp'
-        appJars('nxsecfp-global', 'nxsecfp-web')
+        appName = "${modulePrefix}"
+        appJars(modulePrefix + '-global', modulePrefix + '-web')
     }
 }
 
-task undeploy(type: Delete, dependsOn: ':nxsecfp-web:cleanConf') {
+task undeploy(type: Delete, dependsOn: ":${modulePrefix}-web:cleanConf" ) {
     delete("$cuba.tomcat.dir/shared")
-    delete("$cuba.tomcat.dir/webapps/nxsecfp-core")
-    delete("$cuba.tomcat.dir/webapps/nxsecfp")
+    delete("$cuba.tomcat.dir/webapps/${modulePrefix}-core" )
+    delete("$cuba.tomcat.dir/webapps/${modulePrefix}" )
 }
 
-task restart(dependsOn: ['stop', ':nxsecfp-core:deploy', ':nxsecfp-web:deploy'], description: 'Redeploys applications and restarts local Tomcat') {
+task restart(dependsOn: ['stop', ":${modulePrefix}-core:deploy" , ":${modulePrefix}-web:deploy" ], description: 'Redeploys applications and restarts local Tomcat') {
     doLast {
         ant.waitfor(maxwait: 6, maxwaitunit: 'second', checkevery: 2, checkeveryunit: 'second') {
             not {
@@ -192,9 +198,6 @@ task restart(dependsOn: ['stop', ':nxsecfp-core:deploy', ':nxsecfp-web:deploy'],
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.3.1'
-}
 
 apply from: 'extra.gradle'
 apply from: 'publish.gradle';

@@ -11,14 +11,14 @@ import com.haulmont.cuba.gui.components.TextField;
 import com.haulmont.cuba.security.entity.User;
 import it.nexbit.cuba.security.forgotpassword.app.NexbitUserManagementService;
 import it.nexbit.cuba.security.forgotpassword.config.ForgotPasswordConfig;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
 import java.util.Collections;
 
 public class ResetPassword extends AbstractWindow {
     @Inject
-    protected TextField loginField;
+    protected TextField<String> loginField;
     @Inject
     protected Label warningLabel;
     @Inject

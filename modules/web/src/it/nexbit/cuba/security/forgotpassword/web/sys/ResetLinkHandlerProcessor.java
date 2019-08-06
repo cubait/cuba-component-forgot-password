@@ -4,7 +4,7 @@ import com.haulmont.cuba.web.Connection;
 import com.haulmont.cuba.web.sys.linkhandling.ExternalLinkContext;
 import com.haulmont.cuba.web.sys.linkhandling.LinkHandlerProcessor;
 import it.nexbit.cuba.security.forgotpassword.web.loginwindow.NexbitAppLoginWindow;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
