@@ -42,7 +42,7 @@ public class ResetLinkHandlerProcessor implements LinkHandlerProcessor {
                 if (!connection.isAuthenticated()) {
                     log.info("reset link token found: {}", token);
 
-                    NexbitAppLoginWindow loginWindow = (NexbitAppLoginWindow) linkContext.getApp().getTopLevelWindow();
+                    NexbitAppLoginWindow loginWindow = (NexbitAppLoginWindow) linkContext.getApp().getTopLevelWindow().getFrameOwner();
                     if (loginWindow != null) {
                         loginWindow.showChangePasswordDialog(token);
                     }
