@@ -15,7 +15,7 @@ import com.vaadin.server.Page;
 import it.nexbit.cuba.security.forgotpassword.app.NexbitUserManagementService;
 import it.nexbit.cuba.security.forgotpassword.config.ForgotPasswordConfig;
 import it.nexbit.cuba.security.forgotpassword.web.resetpassword.ResetPassword;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
 import java.util.Map;
