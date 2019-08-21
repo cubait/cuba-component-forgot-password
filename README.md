@@ -1,5 +1,4 @@
 [![license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
-[![Semver](http://img.shields.io/SemVer/2.0.0.png)](http://semver.org/spec/v2.0.0.html)
 [![Generic badge](https://img.shields.io/badge/API%20docs-HERE-orange.svg)][2]
 [![Run in Postman](https://run.pstmn.io/button.svg)][1]
 
@@ -58,8 +57,9 @@ and click `Use in the project` button, and then press `OK`.
 | 6.8.*            | 0.2.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:0.2.0
 | 6.9.*            | 1.0.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:1.0.0
 | 6.10.*           | 2.2.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:2.2.0
+| 7.0.*            | 3.0.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:3.0.0
 
-The latest stable version is: `2.2.0`
+The latest stable version is: `3.0.0`
 
 Add custom application component to your project. Using **CUBA Studio**, go to `PROJECT PROPERTIES` -> `Edit` and click `+` next to `Custom components`,
 then paste into the first field the appropriate coordinates for the desired version, picked from the table above.
@@ -81,6 +81,8 @@ Please see the paragraph *Setup the Anonymous role* in the *Usage* section, for 
 - The extended `allowAnonymous` attribute in _rest-services.xml_ file has been removed. Please use the `anonymousAllowed` standard attribute introduced in CUBA 6.10 instead.
   Remember to change the attribute `xmlns="http://schemas.haulmont.com/cuba/rest-services-v2-ext.xsd"` in your _rest-services.xml_ to the standard `xmlns="http://schemas.haulmont.com/cuba/rest-services-v2.xsd"` one.
 
+**3.0.0**
+- Some code changes required for CUBA 7 compatibility, that are backwards incompatible. 
 
 ## Supported DBMS engines
 
@@ -134,7 +136,7 @@ ext.security.resetPasswordLinkTemplateBody = /it/nexbit/cuba/security/forgotpass
 ext.security.resetPasswordLinkTemplateSubject = /it/nexbit/cuba/security/forgotpassword/app/email/reset-password-link-subject.gsp
 ```
 You can find built-in templates here: [Default email templates](https://github.com/pfurini/cuba-component-forgot-password/tree/master/modules/global/src/it/nexbit/cuba/security/forgotpassword/app/email).
-Remember that they use the same mechanism described here in the official docs: https://doc.cuba-platform.com/manual-6.8/users.html, so
+Remember that they use the same mechanism described here in the official docs: https://doc.cuba-platform.com/manual-7.0/users.html, so
 they can be localized adding a locale suffix, and they can also be located or overridden in the tomcat configuration directory, with 
 the properties added to the `local.app.properties` file.
 
@@ -213,7 +215,7 @@ Thanks to
 
 - Mario David ([@mariodavid](https://github.com/mariodavid)) for the initial MySQL/MariaDB scripts
 - Sorin Federiga ([@sorinfederiga](https://github.com/sorinfederiga)) for the Romanian translation
-- Sergey Butenin ([@basicus](https://github.com/basicus)) for the Russian translation
+- Sergey Butenin ([@basicus](https://github.com/basicus)) for the Russian translation and for porting the code to CUBA 7
  
 
 [1]: https://app.getpostman.com/run-collection/f7b921d260a173059894#?env%5Bsec-forgot-password%20TEST%5D=W3sia2V5IjoiYmFzZXVybCIsInZhbHVlIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2FwcC9yZXN0IiwiZW5hYmxlZCI6dHJ1ZSwidHlwZSI6InRleHQifV0=

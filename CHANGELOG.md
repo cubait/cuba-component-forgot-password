@@ -2,6 +2,10 @@
 
 All releases are documented here. This project follows *Semantic Versioning* principles.
 
+## [3.0.0] - 2019-08-21
+
+- Support for CUBA 7.0 (by Sergey Butenin)
+
 ## [2.2.0] - 2019-02-16
 
 - Added Russian translation (by Sergey Butenin)

@@ -1,6 +1,6 @@
 
 buildscript {
-    ext.cubaVersion = '7.0.9'
+    ext.cubaVersion = '7.0.10'
     repositories {
         maven {
             url 'https://repo.cuba-platform.com/content/groups/work'
@@ -29,7 +29,7 @@ apply(plugin: 'cuba')
 cuba {
     artifact {
         group = 'it.nexbit.cuba.security.forgotpassword'
-        version = "2.3.0"
+        version = "3.0.0"
         isSnapshot = false
     }
     tomcat {
