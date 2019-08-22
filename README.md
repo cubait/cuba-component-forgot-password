@@ -42,12 +42,6 @@ buildscript {
 }
 ```
 
-Alternatively you can use **CUBA Studio** to add it: just go to the `PROJECT PROPERTIES` section,
-click `Edit`, then click on the cog icon next to the `Repository` field.
-In the dialog that opens, click on `+ Add` and enter `https://dl.bintray.com/pfurini/cuba-components`
-in the `URL` field, then click `OK`. Finally, select the just added repository in the upper list,
-and click `Use in the project` button, and then press `OK`.
-
 2. Select a version of the add-on which is compatible with the platform version used in your project:
 
 | Platform Version | Add-on Version | Coordinates
@@ -61,8 +55,7 @@ and click `Use in the project` button, and then press `OK`.
 
 The latest stable version is: `3.0.0`
 
-Add custom application component to your project. Using **CUBA Studio**, go to `PROJECT PROPERTIES` -> `Edit` and click `+` next to `Custom components`,
-then paste into the first field the appropriate coordinates for the desired version, picked from the table above.
+3. Install the correct add-on version in your project using **CUBA Studio**, or manually by editing your `build.gradle` file.
 
 **PLEASE NOTE** that new features are developed only in the latest releases, while only critical bug fixes
 are back-ported to older ones. Please update your CUBA version as soon as possible, if you are in need of
