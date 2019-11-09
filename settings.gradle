@@ -1,6 +1,6 @@
 rootProject.name = 'sec-forgot-password'
 def modulePrefix = 'nxsecfp'
-include(":${modulePrefix}-global" , ":${modulePrefix}-core" , ":${modulePrefix}-web" )
-project(":${modulePrefix}-global" ).projectDir = new File(settingsDir, 'modules/global')
-project(":${modulePrefix}-core" ).projectDir = new File(settingsDir, 'modules/core')
-project(":${modulePrefix}-web" ).projectDir = new File(settingsDir, 'modules/web')
+include(":${modulePrefix}-global", ":${modulePrefix}-core", ":${modulePrefix}-web")
+project(":${modulePrefix}-global").projectDir = new File(settingsDir, 'modules/global')
+project(":${modulePrefix}-core").projectDir = new File(settingsDir, 'modules/core')
+project(":${modulePrefix}-web").projectDir = new File(settingsDir, 'modules/web')

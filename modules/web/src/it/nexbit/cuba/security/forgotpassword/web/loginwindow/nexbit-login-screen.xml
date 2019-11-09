@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        extends="/com/haulmont/cuba/web/app/login/login-screen.xml"
+        messagesPack="it.nexbit.cuba.security.forgotpassword.web.loginwindow">
+    <layout>
+    </layout>
+</window>

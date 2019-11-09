@@ -38,7 +38,5 @@
         <property name="cuba.permissionConfig"
                   value="+it/nexbit/cuba/security/forgotpassword/web-permissions.xml"/>
         <property name="cuba.mainMessagePack" value="+it.nexbit.cuba.security.forgotpassword.web"/>
-        <property name="cuba.restSpringContextConfig"
-                  value="+it/nexbit/cuba/security/forgotpassword/rest-dispatcher-spring.xml"/>
     </module>
 </app-component>
