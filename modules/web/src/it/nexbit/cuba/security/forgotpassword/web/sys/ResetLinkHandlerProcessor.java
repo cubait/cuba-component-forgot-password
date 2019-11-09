@@ -1,9 +1,10 @@
 package it.nexbit.cuba.security.forgotpassword.web.sys;
 
+import com.haulmont.cuba.web.AppUI;
 import com.haulmont.cuba.web.Connection;
 import com.haulmont.cuba.web.sys.linkhandling.ExternalLinkContext;
 import com.haulmont.cuba.web.sys.linkhandling.LinkHandlerProcessor;
-import it.nexbit.cuba.security.forgotpassword.web.loginwindow.NexbitAppLoginWindow;
+import it.nexbit.cuba.security.forgotpassword.web.loginwindow.LoginScreen;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +43,7 @@ public class ResetLinkHandlerProcessor implements LinkHandlerProcessor {
                 if (!connection.isAuthenticated()) {
                     log.info("reset link token found: {}", token);
 
-                    NexbitAppLoginWindow loginWindow = (NexbitAppLoginWindow) linkContext.getApp().getTopLevelWindow().getFrameOwner();
+                    LoginScreen loginWindow = (LoginScreen) AppUI.getCurrent().getTopLevelWindowNN().getFrameOwner();
                     if (loginWindow != null) {
                         loginWindow.showChangePasswordDialog(token);
                     }

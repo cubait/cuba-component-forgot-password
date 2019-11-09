@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         extends="/com/haulmont/cuba/web/app/login/login-screen.xml"
-        messagesPack="it.nexbit.cuba.security.forgotpassword.web.loginwindow">
+        messagesPack="it.nexbit.cuba.security.forgotpassword.web">
     <layout>
+        <vbox id="loginWrapper"
+              spacing="true">
+            <vbox id="loginMainBox">
+                <hbox id="additionalActions" margin="true,false,false,false"
+                      colspan="2" align="MIDDLE_CENTER" spacing="true">
+                    <label id="resetPasswordSpacer" visible="false"/>
+
+                    <linkButton id="resetPasswordButton"
+                                stylename="nx-reset-button"
+                                visible="false"
+                                caption="msg://loginWindow.resetPassword"/>
+                </hbox>
+            </vbox>
+        </vbox>
     </layout>
 </window>
