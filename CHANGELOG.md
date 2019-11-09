@@ -2,6 +2,15 @@
 
 All releases are documented here. This project follows *Semantic Versioning* principles.
 
+## [4.0.0] - 2019-11-09
+
+- Support for CUBA 7.1
+- Refactored the ResetPassword screen using the new API
+- Removed deprecated code and replaced with the suggested replacements
+- Introduced a new login screen (NexbitLoginScreen) created with the new API, that can be used in 
+place of the old one (not removed for backwards compatibility)
+- Fixed a bug when updating existing tokens in the db
+
 ## [3.0.0] - 2019-08-21
 
 - Support for CUBA 7.0 (by Sergey Butenin)
