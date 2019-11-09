@@ -5,10 +5,14 @@
 package it.nexbit.cuba.security.forgotpassword.web.loginwindow;
 
 import com.haulmont.bali.util.ParamsMap;
-import com.haulmont.cuba.gui.WindowManager;
+import com.haulmont.cuba.gui.ScreenBuilders;
 import com.haulmont.cuba.gui.components.Label;
 import com.haulmont.cuba.gui.components.LinkButton;
 import com.haulmont.cuba.gui.components.Window;
+import com.haulmont.cuba.gui.screen.MapScreenOptions;
+import com.haulmont.cuba.gui.screen.OpenMode;
+import com.haulmont.cuba.gui.screen.Screen;
+import com.haulmont.cuba.gui.screen.StandardCloseAction;
 import com.haulmont.cuba.security.entity.User;
 import com.haulmont.cuba.web.app.loginwindow.AppLoginWindow;
 import com.vaadin.server.Page;
@@ -19,9 +23,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
 import java.util.Map;
-import java.util.Objects;
 
-public class NexbitAppLoginWindow extends AppLoginWindow {
+public class NexbitAppLoginWindow extends AppLoginWindow implements LoginScreen {
 
     @Inject
     protected NexbitUserManagementService nexbitUserManagementService;
@@ -30,7 +33,10 @@ public class NexbitAppLoginWindow extends AppLoginWindow {
     protected ForgotPasswordConfig forgotPasswordConfig;
 
     @Inject
-    protected Label resetPasswordSpacer;
+    protected ScreenBuilders screenBuilders;
+
+    @Inject
+    protected Label<String> resetPasswordSpacer;
     @Inject
     protected LinkButton resetPasswordButton;
 
@@ -47,16 +53,18 @@ public class NexbitAppLoginWindow extends AppLoginWindow {
     }
 
     public void onResetPasswordBtnClick() {
-        ResetPassword resetPasswordScreen = (ResetPassword) openWindow("resetPassword",
-                WindowManager.OpenType.DIALOG);
-        // Add a listener to be notified when the "Restore password" screen is closed with COMMIT_ACTION_ID
-        resetPasswordScreen.addCloseWithCommitListener(() -> {
-            loginField.setValue(resetPasswordScreen.getLogin());
-            // clear password field
-            passwordField.setValue(null);
-            // Set focus in password field
-            passwordField.requestFocus();
-        });
+        screenBuilders.screen(this)
+                .withScreenClass(ResetPassword.class)
+                .withOpenMode(OpenMode.DIALOG)
+                .withAfterCloseListener(closeEvent -> {
+                    if (closeEvent.getCloseAction() == WINDOW_COMMIT_AND_CLOSE_ACTION) {
+                        loginField.setValue(closeEvent.getScreen().getLogin());
+                        // clear password field
+                        passwordField.setValue(null);
+                        // Set focus in password field
+                        passwordField.focus();
+                    }
+                }).build().show();
     }
 
     public void showChangePasswordDialog(String token) {
@@ -66,19 +74,21 @@ public class NexbitAppLoginWindow extends AppLoginWindow {
 
             if (user != null) {
                 // show change password dialog
-                Window changePasswordDialog = openWindow("sec$User.changePassword",
-                        WindowManager.OpenType.DIALOG,
-                        ParamsMap.of("currentPasswordRequired", false,
+                Screen changePasswordDialog = screenBuilders.screen(this)
+                        .withScreenId("sec$User.changePassword")
+                        .withOpenMode(OpenMode.DIALOG)
+                        .withOptions(new MapScreenOptions(ParamsMap.of(
+                                "currentPasswordRequired", false,
                                 "cancelEnabled", true,
-                                "user", user)
-                );
-                changePasswordDialog.addCloseListener(actionId -> {
-                    if (Objects.equals(actionId, COMMIT_ACTION_ID)) {
+                                "user", user)))
+                        .show();
+                changePasswordDialog.addAfterCloseListener(closeEvent -> {
+                    if (Window.COMMIT_ACTION_ID.equals(((StandardCloseAction)closeEvent.getCloseAction()).getActionId())) {
                         loginField.setValue(user.getLoginLowerCase());
                         // clear password field
                         passwordField.setValue(null);
                         // Set focus in password field
-                        passwordField.requestFocus();
+                        passwordField.focus();
 
                         nexbitUserManagementService.deleteResetPasswordToken(token);
                     }
