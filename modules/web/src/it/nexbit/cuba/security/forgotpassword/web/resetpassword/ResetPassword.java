@@ -1,13 +1,11 @@
-/*
- * Copyright (c) 2017 Nexbit di Paolo Furini
- */
-
 package it.nexbit.cuba.security.forgotpassword.web.resetpassword;
 
 import com.haulmont.cuba.core.global.GlobalConfig;
-import com.haulmont.cuba.gui.components.AbstractWindow;
-import com.haulmont.cuba.gui.components.Label;
-import com.haulmont.cuba.gui.components.TextField;
+import com.haulmont.cuba.core.global.Messages;
+import com.haulmont.cuba.gui.Notifications;
+import com.haulmont.cuba.gui.Notifications.NotificationType;
+import com.haulmont.cuba.gui.components.*;
+import com.haulmont.cuba.gui.screen.*;
 import com.haulmont.cuba.security.entity.User;
 import it.nexbit.cuba.security.forgotpassword.app.NexbitUserManagementService;
 import it.nexbit.cuba.security.forgotpassword.config.ForgotPasswordConfig;
@@ -16,20 +14,28 @@ import org.apache.commons.lang3.StringUtils;
 import javax.inject.Inject;
 import java.util.Collections;
 
-public class ResetPassword extends AbstractWindow {
+@UiController("nxsecfp_ResetPassword")
+@UiDescriptor("reset-password.xml")
+public class ResetPassword extends Screen {
     @Inject
     protected TextField<String> loginField;
     @Inject
-    protected Label warningLabel;
+    protected Label<String> warningLabel;
+
     @Inject
     protected NexbitUserManagementService nexbitUserManagementService;
     @Inject
     protected ForgotPasswordConfig forgotPasswordConfig;
     @Inject
     protected GlobalConfig globalConfig;
+    @Inject
+    protected Messages messages;
+    @Inject
+    protected Notifications notifications;
 
-    public void onSubmit() {
-        if (validateAll()) {
+    @Subscribe("submit")
+    protected void onSubmit(Action.ActionPerformedEvent event) {
+        if (validateScreen()) {
             User targetUser = nexbitUserManagementService.findUser(loginField.getValue());
             if (targetUser == null) {
                 warningLabel.setValue(messages.getMessage(ResetPassword.class,
@@ -47,22 +53,39 @@ public class ResetPassword extends AbstractWindow {
                 nexbitUserManagementService.sendResetPasswordLinks(Collections.singletonList(targetUser.getId()),
                         globalConfig.getWebAppUrl() + forgotPasswordConfig.getResetPasswordLinkWebPath(),
                         false);
-                showNotification(messages.getMainMessage("success"),
-                        messages.getMainMessage("resetPassword.resetMessage"),
-                        NotificationType.TRAY);
-                close(COMMIT_ACTION_ID);
+                notifications.create(NotificationType.TRAY)
+                        .withCaption(messages.getMainMessage("success"))
+                        .withDescription(messages.getMainMessage("resetPassword.resetMessage"))
+                        .show();
+                close(WINDOW_COMMIT_AND_CLOSE_ACTION);
             }
         }
     }
 
     protected void showWarning() {
         warningLabel.setVisible(true);
-        loginField.requestFocus();
+        loginField.focus();
         loginField.selectAll();
     }
 
-    public void onCancel() {
-        close(CLOSE_ACTION_ID);
+    @Subscribe("cancel")
+    protected void onCancel(Action.ActionPerformedEvent event) {
+        closeWithDefaultAction();
+    }
+
+    /**
+     * Validates screen data. Default implementation validates visible and enabled UI components,
+     * and show a notification on errors.
+     * <br>
+     * Can be overridden in subclasses.
+     *
+     * @return <code>true</code> if no errors, <code>false</code> otherwise
+     */
+    protected boolean validateScreen() {
+        ScreenValidation screenValidation = getBeanLocator().get(ScreenValidation.NAME);
+        ValidationErrors validationErrors = screenValidation.validateUiComponents(getWindow());
+        screenValidation.showValidationErrors(this, validationErrors);
+        return validationErrors.isEmpty();
     }
 
     public String getLogin() {
