@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import javax.inject.Inject;
 import java.util.Collections;
 
-@UiController("nxsecfp_ResetPassword")
+@UiController("resetPassword")
 @UiDescriptor("reset-password.xml")
 public class ResetPassword extends Screen {
     @Inject
