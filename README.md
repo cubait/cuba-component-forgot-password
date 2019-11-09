@@ -52,8 +52,9 @@ buildscript {
 | 6.9.*            | 1.0.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:1.0.0
 | 6.10.*           | 2.2.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:2.2.0
 | 7.0.*            | 3.0.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:3.0.0
+| 7.1.*            | 4.0.0          | it.nexbit.cuba.security.forgotpassword:nxsecfp-global:4.0.0
 
-The latest stable version is: `3.0.0`
+The latest stable version is: `4.0.0`
 
 3. Install the correct add-on version in your project using **CUBA Studio**, or manually by editing your `build.gradle` file.
 
@@ -144,6 +145,9 @@ The component also exposes the following DATABASE properties, that you can confi
 
 #### extsec_UserManagementService Methods
 
+**UPDATE FOR CUBA >= 7.1**: Since the REST API functionality has been moved to a separate add-on, you must add
+it to your project to be able to call the following methods via REST. 
+
 The following are the methods exposed by the `extsec_UserManagementService`
 
 ```xml
@@ -197,6 +201,16 @@ concatenating the values from `GlobalConfig#getWebAppUrl()` and the `ext.securit
 property
 
 In both cases, it will append a `token=<TOKEN_VALUE>` query string to the final URL.
+
+#### New Login screen in v.4.0
+
+Starting from version 4.0 of the addon, there are two login screens: 
+- `NexbitLoginScreen` - new login screen written with the new screen API
+- `NexbitAppLoginWindow` - legacy login screen written with the old API. **NOTE**: *you should not 
+extend your custom login screen from this if you are starting a new project!*
+
+The legacy login screen is used automatically when your `web-app.properties` contains
+`cuba.web.loginScreenId=loginWindow`.
 
 ## Known Issues
 
