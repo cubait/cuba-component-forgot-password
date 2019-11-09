@@ -393,14 +393,14 @@ public class NexbitUserManagementServiceBean implements NexbitUserManagementServ
 
             if (resetPasswordToken == null) {
                 resetPasswordToken = metadata.create(ResetPasswordToken.class);
+                em.persist(resetPasswordToken);
                 resetPasswordToken.setUser(em.getReference(User.class, userId));
             }
             Date expires = DateUtils.addMinutes(timeSource.currentTimestamp(), lifetime);
             resetPasswordToken.setToken(token);
             resetPasswordToken.setExpireAt(expires);
 
-            em.persist(resetPasswordToken);
-
+            em.flush();
             tx.commit();
         }
 
